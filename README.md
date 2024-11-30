@@ -27,6 +27,7 @@ Este proyecto es una demostración de una API construida con Laravel 11, que inc
   - Servidor SMTP: `smtp-relay.brave.com`.
   - Puerto: `587`.
   - Autenticación habilitada.
+  - Importante configura un email a el usuario admin para que le prueba del smtp sea corecta
 
 ### 4. Comando Personalizado
 - **`php artisan service:init`**: Comando para inicializar el servicio.
@@ -42,6 +43,7 @@ Este proyecto es una demostración de una API construida con Laravel 11, que inc
 ### 6. Pruebas Unitarias
 - Validación del envío de notificaciones con `Notification::fake()`.
 - Prueba: `php artisan test --filter=PostNotificationTest`.
+- Esta prueba se limita a revisar el corecto funcionamiento del codigo mas no del servicio smtp
 
 ## Proceso de Configuración
 
@@ -89,7 +91,12 @@ Este proyecto es una demostración de una API construida con Laravel 11, que inc
    php artisan service:init
    ```
 
-8. **Probar la Aplicación**:
+8. **Ejecutar el Worker de Cola** (opcional para notificaciones en cola):
+   ```bash
+   php artisan queue:work
+   ```
+
+9. **Probar la Aplicación**:
    - Ejecuta las pruebas unitarias para verificar que todo funcione correctamente:
      ```bash
      php artisan test

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Mail\NewPostNotification;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\NewPostNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -45,7 +44,7 @@ class PostController extends Controller
         })->get();
 
         // Enviar la notificación a los administradores
-        Notification::send($admins, new NewPostNotification($post, $user));
+        Notification::send($admins, new NewPostNotification($post->title, $user->name));
 
         return response()->json(['message' => 'Post creado exitosamente', 'data' => $post], 201);
     }
